@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .mainitem {
+            display: flex;
+            justify-content: space-evenly;
+            height: 60vh;
+            width: 100%;
+        }
+
+        .mainitemimg {
+            width: 25%;
+            height: 100%;
+        }
+
+        .mainitemimg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .mainitemdesc {
+            width: 50%;
+            height: 90%;
+            text-align: center;
+            font-size: 1.5rem;
+        }
+
+        .mainitemdesc p {
+            text-align: center;
+        }
+
+        .itembuy {
+            padding: 10px;
+            background-color: #000;
+            color: white;
+            font-weight: 500;
+            border: 2px solid white;
+            border-radius: 10px;
+            transition: .2s;
+        }
+
+        .itembuy:hover {
+            background-color: white;
+            color: #000;
+            border: 2px solid black;
+            border-radius: 10px;
+        }
+
+        .sideitems {
+            margin-top: 3%;
+            display: flex;
+            justify-content: space-evenly;
+            height: 35%;
+            width: auto;
+        }
+
+        .sideitem {
+            height: 30vh;
+            width: 30vh;
+        }
+
+        .sideitem img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        .sideitem:hover img {
+            transform: scale(1.05);
+            transition: 0.3s ease;
+        }
+
+
+        @media (max-width:700px) {
+            .mainitem {
+                height: auto;
+                width: auto;
+                flex-direction: column;
+                grid-template-columns: 1fr;
+                align-items: center;
+            }
+
+            .mainitemimg {
+                height: auto;
+                width: auto;
+            }
+
+            .mainitemimg img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .mainitemdesc {
+                width: auto;
+                height: auto;
+                font-size: 1rem;
+            }
+
+            .sideitems {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="mainitem">
+        <div class="mainitemimg">
+            <img id="mainImg" src="images/print-nakles.jpg" alt="Necklace" data-title="Necklace" data-price="₹1,00,000"
+                data-desc="A classic gold necklace perfect for weddings." />
+        </div>
+        <div class="mainitemdesc">
+            <h1 id="mainTitle">Necklace</h1>
+            <p id="mainDesc">
+                A classic gold necklace perfect for weddings.
+            </p>
+            <h1 id="mainPrice">Price : ₹1,00,000</h1>
+            <button class="itembuy">Buy Now!</button>
+        </div>
+
+    </section>
+    <section class="sideitems">
+        <div class="sideitem">
+            <img src="images/print-earrings.jpg" alt="Earrings" data-title="Earrings" data-price="₹50,000"
+                data-desc="Beautiful gold earrings with intricate design." />
+        </div>
+        <div class="sideitem">
+            <img src="images/print-pattilu.jpg" alt="Pattilu" data-title="Pattilu" data-price="₹25,000"
+                data-desc="This para about pattilu">
+        </div>
+        <div class="sideitem">
+            <img src="images/print-ring.jpg" alt="Ring" data-title="Ring" data-price="₹30,000"
+                data-desc="This para is about ring">
+        </div>
+        <div class="sideitem">
+            <img src="images/Gold-bangleset.jpg" alt="Bangles" data-title="Golden Bangles" data-price="₹75,000"
+                data-desc="This para is about bangels">
+        </div>
+        <div class="sideitem">
+            <img src="images/print-ring.jpg" alt="Ring" data-title="Ring" data-price="₹30,000"
+                data-desc="This para is about ring">
+        </div>
+        <div class="sideitem">
+            <img src="images/print-pattilu.jpg" alt="Pattilu" data-title="Pattilu" data-price="₹25,000"
+                data-desc="This para about pattilu">
+        </div>
+    </section>
+</body>
+<script>
+    const mainImg = document.getElementById('mainImg');
+    const mainTitle = document.getElementById('mainTitle');
+    const mainDesc = document.getElementById('mainDesc');
+    const mainPrice = document.getElementById('mainPrice');
+
+    const sideItems = document.querySelectorAll('.sideitem img');
+
+    sideItems.forEach(sideImg => {
+        sideImg.addEventListener('click', () => {
+            // Store current main item data
+            const tempSrc = mainImg.src;
+            const tempAlt = mainImg.alt;
+            const tempTitle = mainTitle.textContent;
+            const tempDesc = mainDesc.textContent;
+            const tempPrice = mainPrice.textContent;
+
+            const tempDataTitle = mainImg.dataset.title;
+            const tempDataDesc = mainImg.dataset.desc;
+            const tempDataPrice = mainImg.dataset.price;
+
+            // Swap side item data to main
+            mainImg.src = sideImg.src;
+            mainImg.alt = sideImg.alt;
+            mainTitle.textContent = sideImg.dataset.title;
+            mainDesc.textContent = sideImg.dataset.desc;
+            mainPrice.textContent = "Price : " + sideImg.dataset.price;
+
+            mainImg.dataset.title = sideImg.dataset.title;
+            mainImg.dataset.desc = sideImg.dataset.desc;
+            mainImg.dataset.price = sideImg.dataset.price;
+
+            // Now set old main item data into clicked side item
+            sideImg.src = tempSrc;
+            sideImg.alt = tempAlt;
+            sideImg.dataset.title = tempDataTitle;
+            sideImg.dataset.desc = tempDataDesc;
+            sideImg.dataset.price = tempDataPrice;
+        });
+    });
+</script>
+
+</html>
